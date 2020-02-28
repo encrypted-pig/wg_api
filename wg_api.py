@@ -55,7 +55,7 @@ class WOTBlitz():
             return data["data"][str(account_id)]["nickname"]
         return None
     
-    def get_info_about_plyer_by_id(self, account_id: int, language: str = "ru") -> dict:
+    def get_player_info_by_id(self, account_id: int, language: str = "ru") -> dict:
         '''
             This method returns player's personal data.
             If id is invalid, None will be returned.
@@ -68,7 +68,7 @@ class WOTBlitz():
             return None
         return data["data"][str(account_id)]["statistics"]["all"]
 
-    def get_info_about_plyer_by_nickname(self, nickname: str, language: str = "ru") -> dict:
+    def get_player_info_by_nickname(self, nickname: str, language: str = "ru") -> dict:
         '''
             This method returns player's personal data.
             If nickname is invalid, None will be returned.
@@ -105,7 +105,7 @@ class WOTBlitz():
         if account_id == 0:
             return None
         return self.get_player_achievements_by_id(account_id, language = language)
-    def get_player_max_series_by_id(self, account_id: int, language: str = "ru"):
+    def get_player_max_series_by_id(self, account_id: int, language: str = "ru") -> dict:
         '''
             This method returns the player max series.
             If id is invalid, None will be returned.
@@ -118,7 +118,7 @@ class WOTBlitz():
             return None
         return data["data"][str(account_id)]["max_series"]
 
-    def get_player_max_series_by_nickname(self, nickname: str, language: str = "ru"):
+    def get_player_max_series_by_nickname(self, nickname: str, language: str = "ru") -> dict:
         '''
             This method returns the player max series.
             If nickname is invalid, None will be returned.
@@ -130,3 +130,23 @@ class WOTBlitz():
         if account_id == 0:
             return None
         return self.get_player_max_series_by_id(account_id)
+
+    def get_clan_id_by_name(self, clan_name: str, language: str = "ru") -> int:
+        '''
+            This method returns the clan_id.
+            If name is invalid, None will be returned.
+        params:
+            *:clan_name: str - the name or tag of the clan.
+            :language: str - the localized language. Default: "ru".
+        '''
+        data = requests.get("https://api.wotblitz.ru/wotb/clans/list/?application_id=%s&search=%s&language=%s&limit=1" % (self.application_id, clan_name, language)).json()
+        if data["data"] == list():
+            return None
+        return data["data"][0]["clan_id"]
+    
+    def get_tanks_list(self) -> dict:
+        '''
+            This method returns a list that contains ids and names of all tanks in the game.
+        '''
+        from tanks_list_wot_blitz import TANKS_LIST
+        return TANKS_LIST
