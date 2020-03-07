@@ -14,7 +14,7 @@ print(app.get_player_info_by_name("player12345"))
 
 Установка
 ------------
-    $ python -m pip install wg_api
+    $ python -m pip install wg-api
 
 __Список доступных методов методов:__
 - get_player_id_by_name(name: str, language: str = 'ru') -> int
