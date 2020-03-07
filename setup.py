@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 requirements = ["requests"]
 setuptools.setup(
-    name="wg-api-encoded-pig",
+    name="wg-api",
     version="0.0.1",
     author="Encoded_pig",
     author_email="takonok.3000@ya.ru",
